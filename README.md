@@ -2,7 +2,7 @@
 Created a model that predicts the chances of winning a premiere league football match for your favourite EPL team. 
 
 * Designed a model that predicts the chances of winning a football :soccer: match for your favourite premiere league team.  
-* Dataset - Scraped and fetched data from the resources provided below . The Dataset contains some important statistics for the last 12 seasons of English Premier League.
+* Dataset - Scraped and fetched data from the resources provided below . The Dataset contains some important statistics for the last 12 seasons of the English Premier League.
 * Model - The major aim of in this project is to build a predictor that predicts the chances of winning a game based on the previous statistical data by using classification algorithms and techniques.
 
 ## Code and Resources Used ##
