@@ -18,35 +18,38 @@ Created a model that predicts the chances of winning a premiere league football 
  [Note: If your favourite team is not in the list, you can scrape the data from the source website linked above using libraries like BeautifulSoup or Selenium.]
  
 #### Data Overview ####
-![](Data_Overview.png "Data Overview")
+![](Data_Overview.PNG "Data Overview")
 
-1. **CRIM** per capital crime rate by town <br />
+The Features are defined as follows:
 
-2. **ZN** proportion of residential land zoned for lots over 25,000 sq.ft. <br />
-
-3. **INDUS** proportion of non-retail business acres per town <br />
-
-4. **CHAS** Charles River dummy variable (= 1 if tract bounds river; 0 otherwise) <br />
-
-5. **NOX** nitric oxides concentration (parts per 10 million) <br />http://www.football-data.co.uk/
-
-6. **RM** average number of rooms per dwelling <br />
-
-7. **AGE** proportion of owner-occupied units built prior to 1940 <br />
-
-8. **DIS** weighted distances to five Boston employment centers <br />
-
-9. **RAD** index of accessibility to radial highways <br />
-
-10. **TAX** full-value property-tax rate per 10,000 USD <br />
-
-11. **PTRATIO** pupil-teacher ratio by town <br />
-
-12. **Black** 1000(Bk — 0.63)² where Bk is the proportion of blacks by town <br />
-
-13. **LSTAT** % lower status of the population <br />
-
-14. **MEDV** Median value of owner-occupied homes in $1000’s
+Div = League Division <br />
+Date = Match Date (dd/mm/yy) <br />
+Time = Time of match kick off <br />
+HomeTeam = Home Team <br />
+AwayTeam = Away Team <br />
+FTHG and HG = Full Time Home Team Goals <br />
+FTAG and AG = Full Time Away Team Goals <br />
+FTR and Res = Full Time Result (H=Home Win, D=Draw, A=Away Win) <br />
+HTHG = Half Time Home Team Goals <br />
+HTAG = Half Time Away Team Goals <br />
+HTR = Half Time Result (H=Home Win, D=Draw, A=Away Win) <br />
+Referee = Match Referee <br />
+HS = Home Team Shots <br />
+AS = Away Team Shots <br />
+HST = Home Team Shots on Target <br />
+AST = Away Team Shots on Target <br />
+HC = Home Team Corners <br />
+AC = Away Team Corners <br />
+HF = Home Team Fouls Committed <br />
+AF = Away Team Fouls Committed <br />
+HFKC = Home Team Free Kicks Conceded <br />
+AFKC = Away Team Free Kicks Conceded <br />
+HO = Home Team Offsides <br />
+AO = Away Team Offsides <br />
+HY = Home Team Yellow Cards <br />
+AY = Away Team Yellow Cards <br />
+HR = Home Team Red Cards <br />
+AR = Away Team Red Cards <br />
 
 ## EDA - Exploratory data analysis ## 
 I looked at the distributions of the data and the value counts for the various categorical variables. I also plotted graphs and heatmaps for correlations between the features and label. Below are a few highlights.
