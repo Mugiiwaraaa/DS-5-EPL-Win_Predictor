@@ -18,18 +18,17 @@ Created a model that predicts the chances of winning a premiere league football 
  [Note: If your favourite team is not in the list, you can scrape the data from the source website linked above using libraries like BeautifulSoup or Selenium.]
  
 #### Data Overview ####
-![]( "Data Overview")
+![](InitialData_Overview.PNG "Data Overview")
 
 The Features are defined as follows:
 
 Div = League Division <br />
 Date = Match Date (dd/mm/yy) <br />
-Time = Time of match kick off <br />
 HomeTeam = Home Team <br />
 AwayTeam = Away Team <br />
-FTHG and HG = Full Time Home Team Goals <br />
-FTAG and AG = Full Time Away Team Goals <br />
-FTR and Res = Full Time Result (H=Home Win, D=Draw, A=Away Win) <br />
+FTHG = Full Time Home Team Goals <br />
+FTAG = Full Time Away Team Goals <br />
+FTR  = Full Time Result (H=Home Win, D=Draw, A=Away Win) <br />
 HTHG = Half Time Home Team Goals <br />
 HTAG = Half Time Away Team Goals <br />
 HTR = Half Time Result (H=Home Win, D=Draw, A=Away Win) <br />
@@ -42,38 +41,61 @@ HC = Home Team Corners <br />
 AC = Away Team Corners <br />
 HF = Home Team Fouls Committed <br />
 AF = Away Team Fouls Committed <br />
-HFKC = Home Team Free Kicks Conceded <br />
-AFKC = Away Team Free Kicks Conceded <br />
-HO = Home Team Offsides <br />
-AO = Away Team Offsides <br />
 HY = Home Team Yellow Cards <br />
 AY = Away Team Yellow Cards <br />
 HR = Home Team Red Cards <br />
 AR = Away Team Red Cards <br />
 
-## EDA - Exploratory data analysis ## 
-I looked at the distributions of the data and the value counts for the various categorical variables. I also plotted graphs and heatmaps for correlations between the features and label. Below are a few highlights.
+#### Data Preprocessing and Cleaning ####
+* Fortunately, we dont have any null values or missing values. We dont have to use an Imputer.
+* I remove unneceassry attributes such as **Div ,Date,Referee**.
+* Since I want to calculate the total number of wins,losses and draws for my team , I define a function that considers the HomeTeam,AwayTeam column and based on the 'FTR' which is the full time result, it returns me a list of wins,losses and draws for Man City. I add this list as a column which will later be the label for my model as I need to predict the end result of a game.
+* Then I drop the 'FTR' column as I dont require it anymore.
+* Finally, I manipulate the 'str' datatype features as an 'int' datatype. This is because a classifier gives us better results on 'int' datatype.    
 
-<img src="attribute_scattermatrix.png" width="400" height="250">
-<img src="correlation_heatmap.png" width="400" height="250">
-<img src="actualvspredicted.png" >
+This is how the data looks like after Preprocessing it:
+
+![](Clean_Data_Overview.PNG "Preprocessed Data")
+
+## EDA - Exploratory data analysis ## 
+* I looked at the distributions of the data and the value counts for thenumber of wins ,losses and draws.
+* Statistical insights on this dataset using the pandas describe() function allows us to really dive into analytics of football and the performance of a club in football games. I am not really diving into the analytics part as our job is to focus on the ML model.  
+* I also plotted a heatmap for the correlations between the features and label. 
+* Besides this, I have also used the pandas-profiling library to generate full detailed EDA report on the dataset. Please find it in the repo for reference.
+
+<img src="Correlation_Visualization.PNG" >
 
 ## Model Building ##
-I also split the data into train and tests sets with a test size of 20%.
 
-I tried three different models and evaluated them using Mean Absolute Error. I chose MAE because it is relatively easy to interpret and outliers aren’t particularly bad in for this type of model.
+* I split the data into train and tests sets with a test size of 15%.
+* After splitting, I stratefied shuffled the datasets to make sure there are similar ratios of the 'Label' attribute in both the testing and training datasets.
+* Finally, I split the data into features and label
 
-I tried three different models:
+As I am creating a Win predictor , I manipulate my labels to return  **True** for Wins and **False** for losses and draws.
+This is my binary condition for my classifier.
 
-Multiple Linear Regression – Baseline for the model
-DecisionTree Regression – Because of the sparse data from the many categorical variables, I thought a normalized regression like DecisionTree would be effective.
-Random Forest – Again, with the sparsity associated with the data, I thought that this would be a good fit.
+#### Creating a Pipeline ####
+This is just to automate all my processes. <br />
+I have added a **StandardScaler** for scaling my features and fit_transformed my features for the model. <br />
+[Note: You can add all processes to this pipeline such as Imputers, etc.] <br />
+
+#### Selecting and training a desired model for our predictor ####
+I tried five different classifier models and evaluated them by calculating the Precision,Recall and F1-Score. I believe accuracy is not the best way to evaluate classifiers, therefore I calculated the F-1 scores for an accurate evaluation for our model.
+
+The five different models I tried are:
+
+1. LogisticRegression - This is the first approach i take to every classying problem as it is efficient. The feedback was average for this particular dataset.
+2. GaussianNB - Naive Bayes classifiers are one of the best models for predictions. This gave me the best results.
+3. RandomForestClassifier - Good with a lot of features. Performed the best on the training datasets with a very high f1-score of 91% but did not perform as good with the testing dataset.
+4. DecisionTreeClassifier - Very similar performance as the RandomForestClassifier 
+5. Support Vector Machine Classifier (SVM) - In short this finds the best hyperplane and splits the data. Had a similar f1-score as the RandomForestClassifier  
 
 ## Model Performance ##
-The Random Forest Regression model outperformed the other approaches on the test and validation sets.I found out the Mean and the Standard Deviation for all the three models. This basically gives us an image by how much percentage can the predictions be off the actual prediction.
-* **Multiple Linear Regression:**   Mean- 5.028337074958086 , Standard Deviation- 1.056869119278954
-* **Decision Tree Regression:** Mean- 4.256820741921791,
-   Standard Deviation- 1.1575140416039331
-* **Random Forest Regression:** Mean- 3.304827981052571, 
-   Standard Deviation- 0.6490112395533792 <br />
-The results were pretty good since in the worst case scenario,our predictions would only be off by a meager 3.65%.
+The Gaussian Naive Bayes Classifier performed the best  on the test and validation sets.I found out the Precision,Recall and F1-Scores for all the models. This gives us a proper evaluation of the model.
+Below are the highlights of how the GaussianNB model performed : <br />
+             **Precision_score - 0.7241379310344828** <br />
+            **Recall_score - 0.9333333333333333** <br />
+             **F1_Score - 0.8155339805825242** <br /> 
+
+
+
