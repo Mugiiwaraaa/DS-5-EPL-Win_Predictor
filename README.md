@@ -82,6 +82,16 @@ I have added a **StandardScaler** for scaling my features and fit_transformed my
 #### Selecting and training a desired model for our predictor ####
 I tried five different classifier models and evaluated them by calculating the Precision,Recall and F1-Score. I believe accuracy is not the best way to evaluate classifiers, therefore I calculated the F-1 scores for an accurate evaluation for our model.
 
+
+Although Before calculating the precision,recall and F1-score, I had to first compile the confusion matrix which gives us an idea of how many predictions were right and wrong.
+
+<img src="confusion_matrix.png" >
+
+The confusion matrix tell us that: <br />
+* **57** False outcomes were predicted as True outcomes <br />
+* **78** True outcomes were preicted as False outcomes <br />
+
+
 The five different models I tried are:
 
 1. LogisticRegression - This is the first approach i take to every classying problem as it is efficient. The feedback was average for this particular dataset.
