@@ -18,7 +18,7 @@ Created a model that predicts the chances of winning a premiere league football 
  [Note: If your favourite team is not in the list, you can scrape the data from the source website linked above using libraries like BeautifulSoup or Selenium.]
  
 #### Data Overview ####
-![](Data_Overview.PNG "Data Overview")
+![]( "Data Overview")
 
 The Features are defined as follows:
 
